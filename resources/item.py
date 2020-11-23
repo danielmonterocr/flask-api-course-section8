@@ -1,9 +1,6 @@
-import sqlite3
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.item import ItemModel
-
-items = []
 
 class Item(Resource): 
     parser = reqparse.RequestParser()
@@ -13,7 +10,7 @@ class Item(Resource):
         help="This field cannot be left blank!"
     )
     parser.add_argument('store_id',
-        type=float,
+        type=int,
         required=True,
         help="Every item needs a store id."
     )
@@ -46,7 +43,7 @@ class Item(Resource):
         if item:
             item.delete_from_db()
 
-        return {'message': 'Item deleted'}
+        return {'message': "Item deleted"}
 
     def put(self, name):
         data = Item.parser.parse_args()
